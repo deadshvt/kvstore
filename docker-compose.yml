@@ -1,0 +1,88 @@
+x-tarantool-common: &tarantool-common
+  image: tarantool/tarantool:latest
+  restart: always
+  networks:
+    - tarantool-network
+  platform: linux/amd64
+
+services:
+#  tarantool-router:
+#    <<: *tarantool-common
+#    build:
+#      context: .
+#      dockerfile: docker/router.Dockerfile
+#    ports:
+#      - "${TARANTOOL_ROUTER_PORT:-3301}:${TARANTOOL_ROUTER_PORT:-3301}"
+#    volumes:
+#      - ./scripts/setup_tarantool_router.lua:/opt/setup_tarantool_router.lua
+#    command: tarantool /opt/setup_tarantool_router.lua
+#    environment:
+#      TARANTOOL_SHARD_COUNT: "${TARANTOOL_SHARD_COUNT:-2}"
+#      TARANTOOL_REPLICA1_URI: "${TARANTOOL_REPLICA1_URI:-tarantool-replica1:3302}"
+#      TARANTOOL_REPLICA2_URI: "${TARANTOOL_REPLICA2_URI:-tarantool-replica2:3303}"
+#      TARANTOOL_USER: "${TARANTOOL_USER:-user}"
+#      TARANTOOL_USER_PASSWORD: "${TARANTOOL_USER_PASSWORD:-password}"
+#    depends_on:
+#      - tarantool-replica1
+#      - tarantool-replica2
+#
+#  tarantool-replica1:
+#    <<: *tarantool-common
+#    build:
+#      context: .
+#      dockerfile: docker/replica.Dockerfile
+#    ports:
+#      - "${TARANTOOL_REPLICA1_PORT:-3302}:${TARANTOOL_REPLICA1_PORT:-3302}"
+#    volumes:
+#      - ./scripts/setup_tarantool_replica.lua:/opt/setup_tarantool_replica.lua
+#    command: tarantool /opt/setup_tarantool_replica.lua
+#    environment:
+#      INSTANCE_ID: "${TARANTOOL_REPLICA1_INSTANCE_ID:-replica1}"
+#      TARANTOOL_LISTEN_PORT: "${TARANTOOL_REPLICA1_PORT:-3302}"
+#      TARANTOOL_USER: "${TARANTOOL_USER:-user}"
+#      TARANTOOL_USER_PASSWORD: "${TARANTOOL_USER_PASSWORD:-password}"
+#
+#  tarantool-replica2:
+#    <<: *tarantool-common
+#    build:
+#      context: .
+#      dockerfile: docker/replica.Dockerfile
+#    ports:
+#      - "${TARANTOOL_REPLICA2_PORT:-3303}:${TARANTOOL_REPLICA2_PORT:-3303}"
+#    volumes:
+#      - ./scripts/setup_tarantool_replica.lua:/opt/setup_tarantool_replica.lua
+#    command: tarantool /opt/setup_tarantool_replica.lua
+#    environment:
+#      INSTANCE_ID: "${TARANTOOL_REPLICA2_INSTANCE_ID:-replica2}"
+#      TARANTOOL_LISTEN_PORT: "${TARANTOOL_REPLICA2_PORT:-3303}"
+#      TARANTOOL_USER: "${TARANTOOL_USER:-user}"
+#      TARANTOOL_USER_PASSWORD: "${TARANTOOL_USER_PASSWORD:-password}"
+
+  tarantool:
+    <<: *tarantool-common
+    build:
+      context: .
+      dockerfile: docker/tarantool.Dockerfile
+    ports:
+      - "${TARANTOOL_PORT:-3301}:${TARANTOOL_PORT:-3301}"
+    volumes:
+      - ./scripts/setup_tarantool.lua:/opt/setup_tarantool.lua
+    command: tarantool /opt/setup_tarantool.lua
+    networks:
+      - tarantool-network
+
+  kvstore:
+    build:
+      context: .
+      dockerfile: docker/kvstore.Dockerfile
+    ports:
+      - "${SERVER_PORT:-8080}:${SERVER_PORT:-8080}"
+    depends_on:
+      - tarantool
+    networks:
+      - tarantool-network
+    volumes:
+      - .env:/project/.env
+
+networks:
+  tarantool-network:
