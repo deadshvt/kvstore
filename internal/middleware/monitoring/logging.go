@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/rs/zerolog"
+
 	"github.com/deadshvt/kvstore/internal/key"
 	"github.com/deadshvt/kvstore/pkg/logger"
-
-	"github.com/rs/zerolog"
 )
 
 type Lgr struct {

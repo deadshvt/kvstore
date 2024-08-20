@@ -1,8 +1,9 @@
 package user
 
 import (
-	"github.com/deadshvt/kvstore/internal/usecase"
 	"github.com/rs/zerolog"
+
+	"github.com/deadshvt/kvstore/internal/usecase"
 )
 
 type Handler struct {

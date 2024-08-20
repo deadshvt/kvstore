@@ -156,7 +156,7 @@ func Run() {
 	apiAuthRouter.Use(privateChain)
 
 	apiAuthRouter.HandleFunc("/write", pHandler.SetPairs).Methods(http.MethodPost)
-	apiAuthRouter.HandleFunc("/read", pHandler.GetPairs).Methods(http.MethodGet)
+	apiAuthRouter.HandleFunc("/read", pHandler.GetPairs).Methods(http.MethodPost)
 
 	// Server
 	srv := &http.Server{

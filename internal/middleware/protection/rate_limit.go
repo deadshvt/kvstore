@@ -3,10 +3,10 @@ package protection
 import (
 	"net/http"
 
-	"github.com/deadshvt/kvstore/internal/errs"
-
 	"github.com/rs/zerolog"
 	"golang.org/x/time/rate"
+
+	"github.com/deadshvt/kvstore/internal/errs"
 )
 
 type RateLimiter struct {

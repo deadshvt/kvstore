@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/deadshvt/kvstore/internal/errs"
-
 	"github.com/rs/zerolog"
+
+	"github.com/deadshvt/kvstore/internal/errs"
 )
 
 type Recoverer struct {

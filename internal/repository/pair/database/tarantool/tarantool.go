@@ -32,7 +32,7 @@ func (db *Tarantool) Connect(ctx context.Context) error {
 		return ctx.Err()
 	default:
 		dialer := tarantool.NetDialer{
-			Address:  os.Getenv("TARANTOOL_HOST"),
+			Address:  os.Getenv("TARANTOOL_ADDR"),
 			User:     os.Getenv("TARANTOOL_USER"),
 			Password: os.Getenv("TARANTOOL_USER_PASSWORD"),
 		}

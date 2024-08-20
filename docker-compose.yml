@@ -68,8 +68,6 @@ services:
     volumes:
       - ./scripts/setup_tarantool.lua:/opt/setup_tarantool.lua
     command: tarantool /opt/setup_tarantool.lua
-    networks:
-      - tarantool-network
 
   kvstore:
     build:

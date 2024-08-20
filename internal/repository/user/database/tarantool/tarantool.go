@@ -2,10 +2,10 @@ package tarantool
 
 import (
 	"context"
-	"github.com/tarantool/go-tarantool/v2"
 	"os"
 
 	"github.com/rs/zerolog"
+	"github.com/tarantool/go-tarantool/v2"
 
 	"github.com/deadshvt/kvstore/config"
 	"github.com/deadshvt/kvstore/internal/entity"
@@ -29,7 +29,7 @@ func (db *Tarantool) Connect(ctx context.Context) error {
 		return ctx.Err()
 	default:
 		dialer := tarantool.NetDialer{
-			Address:  os.Getenv("TARANTOOL_HOST"),
+			Address:  os.Getenv("TARANTOOL_ADDR"),
 			User:     os.Getenv("TARANTOOL_USER"),
 			Password: os.Getenv("TARANTOOL_USER_PASSWORD"),
 		}

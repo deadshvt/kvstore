@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/deadshvt/kvstore/internal/key"
-
 	"github.com/google/uuid"
 	"github.com/rs/zerolog"
+
+	"github.com/deadshvt/kvstore/internal/key"
 )
 
 type RequestIDGenerator struct {

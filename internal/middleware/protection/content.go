@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/deadshvt/kvstore/internal/errs"
-
 	"github.com/rs/zerolog"
+
+	"github.com/deadshvt/kvstore/internal/errs"
 )
 
 type Content struct {
